@@ -12,7 +12,10 @@
   "license": "LicenseRef-LICENSE",
   "bugs": {
   },
-  "dependencies": {},
+  "dependencies": {
+    "three-particle-simulation" : ">=1.0.0",
+    "aframe" : ">=0.7.0"
+  },
   "devDependencies": {
   }
 }
