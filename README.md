@@ -33,11 +33,10 @@ browserify main.js -o bundle.js
       <a-entity
         position = "0.3 0 0"
         scale = "10 10 10"
-        particle_simulation = "source:#particleData;dt:0.2;focusSphereSelector:.focus;focusSphere:#sph1;focusSphereRadius:1">
+        particle_simulation = "source:#particleData;dt:0.2;focusSphereSelector:.focus;focusSphereRadius:1">
       </a-entity>
       
       <a-sphere 
-        id = "sph1"
         class = "focus"
         position="0 0 0"
         radius="1"
