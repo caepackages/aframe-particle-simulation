@@ -7,8 +7,14 @@ npm i aframe-particle-simulation
 ```
 
 ```javascript
-// index.js
+// main.js
 require('aframe-particle-simulation');
+```
+
+## Browserify
+
+```
+browserify main.js -o bundle.js
 ```
 
 ## HTML
