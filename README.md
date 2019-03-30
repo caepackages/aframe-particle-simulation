@@ -21,7 +21,7 @@ require('aframe-particle-simulation');
   <body>
     <a-scene background= "color:white">
       <a-assets>
-        <a-asset-item id="particleData" src="./tests/assets/data/data.json"></a-asset-item>
+        <a-asset-item id="particleData" src="data.json"></a-asset-item>
       </a-assets>
 
       <a-entity position = "0.3 0 0" scale = "10 10 10" particle_simulation =      "source:#particleData;dt:0.2;focusSphereSelector:.focus;focusSphere:#sph1;focusSphereRadius:1"></a-entity>
