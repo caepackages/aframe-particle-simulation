@@ -9,34 +9,41 @@ if (typeof AFRAME === 'undefined') {
 AFRAME.registerComponent('particle_simulation', {
   schema: {
     source: {type: 'selector'},      
-    dt: {default: 0.01},
+    fps: {default: 60.0},
     lifetime: {default: 2.0},
     colormapMaxPressure: {default: 100},      
     colormapMinPressure: {default: 10},
     reverseColormap: {default: false},       
-    hideParticleOutOfRange: {default: false},  
+    hideParticleOutOfRange: {default: false},
     spawnRate: {default: 15000},
     timeScale: {default: 1.0},
-    colormap: {default: 'tests/assets/textures/colormap.png'},
-    sprite: {default: 'tests/assets/textures/particle2.png'},
+    colormap: {default: ''},
+    sprite: {default: ''},
     maxParticles: {default: 250000},
     focusSphereSelector:  {default: 'a-particle-focus'},
     focusSphereRadius: {default: 0.3},
     sizeOutOfFocus: {default: 0.25},
-    size: {default: 10.0}
-    //animate: {default: true}
+    size: {default: 5.0}
   },
  
   init: function () {
     var el = this.el;
     this.clock = new THREE.Clock();
-    this.particleSystem = new THREE.GPUParticleSimulation( {
+	this.tickTime = -1;
+	this.animate = true;
+	
+	var settings = {
       maxParticles: this.data.maxParticles,
-      data: JSON.parse(this.data.source.data),
-      fps: 1 / this.data.dt,
+      fps: this.data.fps,
       colormap: this.data.colormap,
       sprite: this.data.sprite,
-    } );
+    };
+	
+	if (this.data.source !== null) {
+		settings.data = JSON.parse(this.data.source.data)
+	}
+	
+    this.particleSystem = new THREE.GPUParticleSimulation( settings );
     
     el.setObject3D('mesh', this.particleSystem);
   },
@@ -85,14 +92,13 @@ AFRAME.registerComponent('particle_simulation', {
     };
   },
 
-  /*
   play: function () {
-    this.data.animate = true;
+    this.animate = true;
   },
 
   pause: function () {
-    this.data.animate = false;
-  },*/
+    this.animate = false;
+  },
   
   remove: function () {
     this.el.removeObject3D('mesh');
@@ -100,11 +106,13 @@ AFRAME.registerComponent('particle_simulation', {
       
   tick: function (time, timeDelta) {
 
-    //if (this.data.animate) {
+    if (this.animate) {
       
       this.updateFocusSpheres(time)
-      
-      var delta = timeDelta / 1000.0 * this.data.timeScale;
+	  
+	  var delta = this.clock.getDelta() * this.data.timeScale;
+	  
+	  this.tickTime += delta;
       
       if ( delta > 0 ) {
 
@@ -112,11 +120,12 @@ AFRAME.registerComponent('particle_simulation', {
 
           // Spawning particles is super cheap, and once you spawn them, the rest of
           // their lifecycle is handled entirely on the GPU, driven by a time uniform updated below
+		  this.options.time = this.clock.getElapsedTime( );
           this.particleSystem.spawnParticle( this.options );
         }
       }      
       
-      var spherePosWorld = []; //new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]        
+      var spherePosWorld = [];    
       if (this.focusSpheres.length > 0) {
 
         for (var i = 0; i < Math.min(this.focusSpheres.length, 3); i++) {
@@ -126,9 +135,9 @@ AFRAME.registerComponent('particle_simulation', {
         } 
       }
       
-      this.particleSystem.update( time / 1000.0, this.useFocusSpheres, spherePosWorld, this.data.focusSphereRadius);
+      this.particleSystem.update( this.tickTime, this.useFocusSpheres, spherePosWorld, this.data.focusSphereRadius);
     }
-  //}
+  }
 });
 
 AFRAME.registerPrimitive('a-particle-focus', {
@@ -191,14 +200,6 @@ AFRAME.registerComponent('toggle-particle-focus', {
 	  }
 	  this.time = time;
 	}
-	  
-	  
-	  
   }
-  
 });  
-  
-  
-  
-  
   
