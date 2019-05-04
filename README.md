@@ -20,7 +20,7 @@ browserify main.js -o bundle.js
 ## HTML
 
 ```html
-html>
+<html>
   <head>
   </head>
     <script src="bundle.js"></script>  
