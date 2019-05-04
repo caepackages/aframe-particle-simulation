@@ -11,8 +11,8 @@ AFRAME.registerComponent('particle_simulation', {
     source: {type: 'selector'},      
     fps: {default: 60.0},
     lifetime: {default: 2.0},
-    colormapMaxPressure: {default: 100},      
-    colormapMinPressure: {default: 10},
+    colormapMaxPressure: {default: 1},      
+    colormapMinPressure: {default: 0},
     reverseColormap: {default: false},       
     hideParticleOutOfRange: {default: false},
     spawnRate: {default: 15000},
@@ -22,7 +22,7 @@ AFRAME.registerComponent('particle_simulation', {
     maxParticles: {default: 250000},
     focusSphereSelector:  {default: 'a-particle-focus'},
     focusSphereRadius: {default: 0.3},
-    sizeOutOfFocus: {default: 0.25},
+    sizeOutOfFocus: {default: 2.5},
     size: {default: 5.0}
   },
  
