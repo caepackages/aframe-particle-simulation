@@ -20,25 +20,27 @@ browserify main.js -o bundle.js
 ## HTML
 
 ```html
-<html>
+html>
   <head>
   </head>
     <script src="bundle.js"></script>  
   <body>
-    <a-scene background= "color:white">
+    <a-scene background= "color:black">
       <a-assets>
+	  <!--
         <a-asset-item id="particleData" src="data.json"></a-asset-item>
+		-->
       </a-assets>
 
       <a-entity
-        position = "0.3 0 0"
-        scale = "10 10 10"
-        particle_simulation = "source:#particleData;dt:0.2;focusSphereSelector:.focus;focusSphereRadius:1">
+        position = "0 0 0"
+        scale = "1 1 1"
+        particle_simulation = "source:#particleData;fps:60;focusSphereSelector:.focus;focusSphereRadius:1">
       </a-entity>
       
       <a-sphere 
         class = "focus"
-        position="0 0 0"
+        position="0.8 0 0"
         radius="1"
         material="wireframe:true;color:green;transparent:true;opacity:0.5">
       </a-sphere>
