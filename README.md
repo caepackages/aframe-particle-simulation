@@ -35,7 +35,7 @@ browserify main.js -o bundle.js
       <a-entity
         position = "0 0 0"
         scale = "1 1 1"
-        particle_simulation = "source:#particleData;fps:60;focusSphereSelector:.focus;focusSphereRadius:1">
+        particle_simulation = "source:#particleData;fps:60">
       </a-entity>
       
       <a-sphere 
