@@ -1,6 +1,6 @@
 {
   "name": "aframe-particle-simulation",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "aframe-particle-simulation",
   "main": "index.js",
   "scripts": {
