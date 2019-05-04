@@ -20,8 +20,7 @@ AFRAME.registerComponent('particle_simulation', {
     colormap: {default: ''},
     sprite: {default: ''},
     maxParticles: {default: 250000},
-    focusSphereSelector:  {default: 'a-particle-focus'},
-    focusSphereRadius: {default: 0.3},
+    focusSphereSelectorClass:  {default: 'focus'},
     sizeOutOfFocus: {default: 2.5},
     size: {default: 5.0}
   },
@@ -55,8 +54,8 @@ AFRAME.registerComponent('particle_simulation', {
       focusSphereNodes = [];
       this.focusSpheres = [];
       
-      if (this.data.focusSphereSelector.length > 0) {
-        focusSphereNodes = document.querySelectorAll(this.data.focusSphereSelector);
+      if (this.data.focusSphereSelectorClass.length > 0) {
+        focusSphereNodes = document.querySelectorAll('a-sphere.' + this.data.focusSphereSelectorClass);
         
         if (focusSphereNodes.length > 0) {          
           this.useFocusSpheres = true;
@@ -125,26 +124,20 @@ AFRAME.registerComponent('particle_simulation', {
         }
       }      
       
-      var spherePosWorld = [];    
+      var spherePosWorld = [];
+	  var sphereRadius = [];
       if (this.focusSpheres.length > 0) {
 
         for (var i = 0; i < Math.min(this.focusSpheres.length, 3); i++) {
           var wPos = new THREE.Vector3();
           this.focusSpheres[i].getWorldPosition (wPos);
           spherePosWorld.push(wPos);
+		  sphereRadius.push(this.focusSpheres[i].el.components.geometry.data.radius)
         } 
       }
       
-      this.particleSystem.update( this.tickTime, this.useFocusSpheres, spherePosWorld, this.data.focusSphereRadius);
+      this.particleSystem.update( this.tickTime, this.useFocusSpheres, spherePosWorld, sphereRadius);
     }
-  }
-});
-
-AFRAME.registerPrimitive('a-particle-focus', {
-  defaultComponents: {
-  },
-  
-  mappings: {
   }
 });
   
