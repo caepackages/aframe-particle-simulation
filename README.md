@@ -38,12 +38,9 @@ browserify main.js -o bundle.js
         particle_simulation = "source:#particleData;fps:60">
       </a-entity>
       
-      <a-sphere 
-        class = "focus"
-        position="0.8 0 0"
-        radius="1"
-        material="wireframe:true;color:green;transparent:true;opacity:0.5">
-      </a-sphere>
+      <a-sphere class = "focus" position="0.8 0 0"  material = "wireframe:true"></a-sphere>
+	  <a-sphere class = "focus" position="-0.8 0 0" radius = "0.4" material = "wireframe:true"></a-sphere>
+	  
     </a-scene>
   </body>
 </html>
