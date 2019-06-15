@@ -25,22 +25,46 @@ browserify main.js -o bundle.js
   </head>
     <script src="bundle.js"></script>  
   <body>
+  
     <a-scene background= "color:black">
       <a-assets>
-	  <!--
-        <a-asset-item id="particleData" src="data.json"></a-asset-item>
+		<!--
+			<a-asset-item id="particleData" src="data.json"></a-asset-item>
 		-->
+		
+        <vr-tools>
+
+          <vr-tool name = "particle focus" multiple = "true" max = "2">
+          
+            <a-sphere radius = "0.015" material = "wireframe:true" class = "icon"></a-sphere>
+            
+			<a-entity particle_focus = "radius:0.2" class = "widget"></a-entity>
+			
+          </vr-tool>
+
+          <vr-tool name = "tool 2" multiple = "true" >
+          
+            <a-sphere radius = "0.015" material = "color:red" class = "icon">
+                          <a-cone scale = "0.05 0.05 0.05" class = "info" position "0.1 0.1 0.1" rotation = "10 20 10" material = "color:red"></a-cone>            
+
+            </a-sphere>
+            
+            <a-box depth="0.05" height="0.05" width="0.05" material = "color:red" class = "widget" ></a-box>
+
+          </vr-tool>  
+
+        </vr-tools>		
+
       </a-assets>
 
       <a-entity
-        position = "0 0 0"
+        position = "0 1.4 0"
         scale = "1 1 1"
         particle_simulation = "source:#particleData;fps:60">
       </a-entity>
-      
-      <a-sphere class = "focus" position="0.8 0 0"  material = "wireframe:true"></a-sphere>
-	  <a-sphere class = "focus" position="-0.8 0 0" radius = "0.4" material = "wireframe:true"></a-sphere>
-	  
+
+	<a-entity tools = "" windows-motion-controls="hand: right" windows-motion-controls-events></a-entity>
+	
     </a-scene>
   </body>
 </html>
