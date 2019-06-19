@@ -36,23 +36,25 @@ browserify main.js -o bundle.js
 
           <vr-tool name = "particle focus" multiple = "true" max = "2">
           
-            <a-sphere radius = "0.015" material = "wireframe:true" class = "icon"></a-sphere>
-            
-			<a-entity particle_focus = "radius:0.2" class = "widget"></a-entity>
+            <a-sphere radius = "0.015" material = "wireframe:true" class = "icon" rotation = "-40 0 0" >
+			<a-text position = "-0.027 -0.03 0" scale = "0.1 0.1 0.1" value="focus"></a-text>
+			</a-sphere>
+            	
+			<a-entity particle_focus = "radius:0.2" class = "widget" ></a-entity>
 			
           </vr-tool>
 
-          <vr-tool name = "tool 2" multiple = "true" >
-          
-            <a-sphere radius = "0.015" material = "color:red" class = "icon">
-                          <a-cone scale = "0.05 0.05 0.05" class = "info" position "0.1 0.1 0.1" rotation = "10 20 10" material = "color:red"></a-cone>            
+  
+          <vr-tool name = "lamp" multiple = "true" >
+		  
+            <a-sphere radius = "0.015" material = "color:yellow" class = "icon" rotation = "-40 0 0">
+			<a-text position = "-0.026 -0.03 0" scale = "0.1 0.1 0.1" value="lamp"></a-text>
+			</a-sphere>
 
-            </a-sphere>
-            
-            <a-box depth="0.05" height="0.05" width="0.05" material = "color:red" class = "widget" ></a-box>
-
+			<a-entity lamp = "radius:0.2" class = "widget" ></a-entity>
+			
           </vr-tool>  
-
+		  
         </vr-tools>		
 
       </a-assets>
@@ -65,6 +67,10 @@ browserify main.js -o bundle.js
 
 	<a-entity tools = "" windows-motion-controls="hand: right" windows-motion-controls-events></a-entity>
 	
+	<!-- Default lighting injected by A-Frame. -->
+	<a-entity light="type: ambient; color: #BBB;intensity: 0.9"></a-entity>
+	<a-entity light="type: directional; color: #FFF; intensity: 0.9" position="-0.5 1 1"></a-entity>
+
     </a-scene>
   </body>
 </html>
