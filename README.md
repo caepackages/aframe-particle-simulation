@@ -51,7 +51,7 @@ browserify main.js -o bundle.js
 			<a-text position = "-0.026 -0.03 0" scale = "0.1 0.1 0.1" value="lamp"></a-text>
 			</a-sphere>
 
-			<a-entity lamp = "radius:0.2" class = "widget" ></a-entity>
+			<a-entity lamp = "radius:0.04" class = "widget" ></a-entity>
 			
           </vr-tool>  
 		  
