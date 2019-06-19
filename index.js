@@ -271,7 +271,7 @@ AFRAME.registerComponent('particle_focus', {
 AFRAME.registerComponent('lamp', {
 	
   schema: {
-    radius: {default: 1.0},
+    radius: {default: 0.04},
 	widthSegments: {default: 16},
 	heightSegments:  {default: 16},
 	intensity:  {default: 0.5},
@@ -292,7 +292,7 @@ AFRAME.registerComponent('lamp', {
     this.geometry = new AFRAME.THREE.SphereGeometry(data.radius, data.widthSegments, data.heightSegments );
 
     // Create material.
-    this.material = new AFRAME.THREE.MeshStandardMaterial({wireframe: false});
+    this.material = new AFRAME.THREE.MeshStandardMaterial({wireframe: false, color: new THREE.Color( 'yellow' )});
 
     // Create mesh.
     this.mesh = new AFRAME.THREE.Mesh(this.geometry, this.material);
