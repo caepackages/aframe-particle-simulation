@@ -159,8 +159,7 @@ AFRAME.registerComponent('particle_focus', {
 	opacity:  {default: 0.5},
 	x:  {default: 0.0},
 	y:  {default: 0.0},
-	z:  {default: -0.15},
-    active: {default: false}
+	z:  {default: -0.15}
   },
 	
   init: function () {
@@ -186,7 +185,7 @@ AFRAME.registerComponent('particle_focus', {
 	var object3D = el.object3D;
     object3D.position.set(data.x, data.y, data.z - data.radius);
 	
-	this.uuid = el.object3D.uuid;
+	//this.uuid = el.object3D.uuid;
 	
 	this.tools = document.querySelector('[tools]')
 	
@@ -266,6 +265,125 @@ AFRAME.registerComponent('particle_focus', {
     }
   
     this.system.unregisterMe(this.el);
+  }
+});
+
+AFRAME.registerComponent('lamp', {
+	
+  schema: {
+    radius: {default: 1.0},
+	widthSegments: {default: 16},
+	heightSegments:  {default: 16},
+	intensity:  {default: 0.5},
+	x:  {default: 0.0},
+	y:  {default: 0.0},
+	z:  {default: -0.15}
+  },
+	
+  init: function () {
+
+	var data = this.data;
+    var el = this.el;
+	
+	this.thumbstick = {x:0, y:0};
+	this.widgetEvents = {};
+	
+	// Create geometry.
+    this.geometry = new AFRAME.THREE.SphereGeometry(data.radius, data.widthSegments, data.heightSegments );
+
+    // Create material.
+    this.material = new AFRAME.THREE.MeshStandardMaterial({wireframe: false});
+
+    // Create mesh.
+    this.mesh = new AFRAME.THREE.Mesh(this.geometry, this.material);
+
+    // Set mesh on entity.
+    el.setObject3D('mesh', this.mesh);
+	
+	var object3D = el.object3D;
+    object3D.position.set(data.x, data.y, data.z - data.radius);
+	
+	// spot light
+	this.light = new THREE.PointLight( 0xff0000, 1, 100 );
+	this.light.position.set( 0, 0, 0 );
+	this.light.castShadow = true;
+	this.light.intensity = data.intensity;
+	
+	object3D.add( this.spotLight );
+
+	this.tools = document.querySelector('[tools]')
+	
+	if (el.parentNode.classList.contains('widgethub')) {
+		
+		this.widgetEvents['thumbstickmoved'] = (event) => {
+			this.thumbstick.x = event.detail.x;
+			this.thumbstick.y = event.detail.y;
+			}
+
+		for (const key in this.widgetEvents) {
+		  if (this.widgetEvents.hasOwnProperty(key)) {
+			this.addEventListener(key);
+		  }
+		}
+	}
+  },
+  
+  addEventListener: function (name) {
+    this.tools.addEventListener(name, this.widgetEvents[name], false);
+  },
+
+  removeEventListener: function (name) {
+    this.tools.removeEventListener(name, this.widgetEvents[name]);
+  },
+  
+  update: function (oldData) {
+  
+    var data = this.data;
+    var el = this.el;
+
+    // If `oldData` is empty, then this means we're in the initialization process.
+    // No need to update.
+    if (Object.keys(oldData).length === 0) { return; }
+
+    // Geometry-related properties changed. Update the geometry.
+    if (data.radius !== oldData.radius ||
+        data.widthSegments !== oldData.widthSegments ||
+        data.heightSegments !== oldData.heightSegments) {
+
+      el.getObject3D('mesh').geometry = new AFRAME.THREE.SphereGeometry(data.radius, data.widthSegments, data.heightSegments );
+    }
+	
+	// Light-related properties changed
+    if ( data.intensity !== oldData.intensity ) {
+	  this.light.intensity = data.intensity;
+    }
+	
+	// sphere position changed
+    if (data.x !== oldData.x || data.y !== oldData.y  || data.z !== oldData.z || data.radius !== oldData.radius) {
+		var object3D = el.object3D;
+		object3D.position.set(data.x, data.y, data.z - data.radius);
+    }
+  },
+  
+  tick: function (time, timeDelta) {
+	  var current = this.el.getAttribute('lamp');
+  
+	  var intensity = current.intensity + Math.round(this.thumbstick.x * 1 ) / 1 * timeDelta / 2500;
+	  intensity = Math.min( Math.max(0, intensity), 1.0 );
+	  
+	  var radius = current.radius + Math.round(this.thumbstick.y * 1 ) / 1 * timeDelta / 2000;
+	  radius = Math.min( Math.max(0.02, radius), 4.0 );  
+	  
+	  this.el.setAttribute('lamp', 'radius', radius);
+	  this.el.setAttribute('lamp', 'intensity', intensity);
+  },
+  
+  remove: function () {
+    for (const key in this.widgetEvents) {
+      if (this.widgetEvents.hasOwnProperty(key)) {
+        this.removeEventListener(key);
+      }
+    }
   }
 });
 
@@ -480,23 +598,23 @@ AFRAME.registerComponent('tools', {
       this.deltaAngle = iconDist / radius;
       
       this.toolIconCenterEl = document.createElement('a-entity');
-      this.toolIconCenterEl.setAttribute('position', '0 0.2 ' + radius);
+      this.toolIconCenterEl.setAttribute('position', '0 0.1 ' + radius);
       this.toolIconCenterEl.setAttribute('rotation', '0 0 0');
       this.el.appendChild(this.toolIconCenterEl);
       
       // widget
       this.widgetEl = document.createElement('a-entity');    
-	  this.widgetEl.setAttribute('class', 'widgethub')
+	  this.widgetEl.setAttribute('class', 'widgethub');
 	  
       this.el.appendChild(this.widgetEl);
-
+	  
       var nTools = this.getNuberOfTools();
       for (var i = 0; i < nTools; i += 1) {
         var el = document.createElement('a-entity');
         
         var angle = -this.deltaAngle * i;
         el.setAttribute('position', -Math.sin(-angle) * radius + ' 0 ' + -Math.cos(-angle) * radius );
-        el.setAttribute('rotation', '0 ' + angle / Math.PI * 180 + ' 0');
+        el.setAttribute('rotation', '0 ' + -angle / Math.PI * 180 + ' 0');
         
         //  icons
         var nodes = this.tools[i].querySelectorAll('.icon');
