@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "three-particle-simulation" : "latest",
-    "aframe" : "0.8.2"
+    "aframe" : "1.0.3"
   },
   "devDependencies": {
   }
