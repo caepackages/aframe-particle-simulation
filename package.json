@@ -1,6 +1,6 @@
 {
   "name": "aframe-particle-simulation",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "aframe-particle-simulation",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "three-particle-simulation" : "latest",
-    "aframe" : "1.0.3"
+    "aframe" : "1.0.4"
   },
   "devDependencies": {
   }
