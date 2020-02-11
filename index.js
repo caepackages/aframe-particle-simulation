@@ -13,6 +13,8 @@ AFRAME.registerComponent('particle_simulation', {
     lifetime: {default: 8.0},
     colormapMaxPressure: {default: 1},      
     colormapMinPressure: {default: 0},
+    velocityMax: {default: 1},      
+    velocityMin: {default: 0},	
     reverseColormap: {default: false},       
     hideParticleOutOfRange: {default: false},
     spawnRate: {default: 15000},
@@ -74,6 +76,8 @@ AFRAME.registerComponent('particle_simulation', {
       time: 0.0,
       colormapMaxPressure: this.data.colormapMaxPressure,
       colormapMinPressure: this.data.colormapMinPressure,
+      velocityMax: this.data.velocityMax,
+      velocityMin: this.data.velocityMin,
       reverseColormap: this.data.reverseColormap,  
       hideParticleOutOfRange: this.data.hideParticleOutOfRange,
     };
