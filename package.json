@@ -13,8 +13,7 @@
   "bugs": {
   },
   "dependencies": {
-    "three-particle-simulation" : "latest",
-    "aframe" : "1.0.4"
+    "three-particle-simulation" : "latest"
   },
   "devDependencies": {
   }
