@@ -8,6 +8,7 @@ npm i aframe-particle-simulation
 
 ```javascript
 // main.js
+require('aframe')
 require('aframe-particle-simulation');
 ```
 
