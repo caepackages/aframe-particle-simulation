@@ -120,7 +120,11 @@ browserify main.js -o bundle.js
 
 <a href="https://panoramic-candle.glitch.me">VR Mixed Reality</a>
 
-<a href="https://field-spring.glitch.me">Multi User</a>
+<a href="https://heavy-chisel-title.glitch.me">Mantaflow</a>
+
+<a href="https://tiny-breezy-catamaran.glitch.me/?user=victor">Multi User Victor</a>
+
+<a href="https://tiny-breezy-catamaran.glitch.me/?user=sintel">Multi User Sintel</a>
 
 ## License
 ```
