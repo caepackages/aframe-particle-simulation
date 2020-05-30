@@ -122,9 +122,11 @@ browserify main.js -o bundle.js
 
 <a href="https://heavy-chisel-title.glitch.me">Mantaflow</a>
 
-<a href="https://tiny-breezy-catamaran.glitch.me/?user=victor">Multi User Victor</a>
+<a href="https://tiny-breezy-catamaran.glitch.me/?user=viktor&scale=0.25;posy=1.5">Multi User Victor</a>
 
-<a href="https://tiny-breezy-catamaran.glitch.me/?user=sintel">Multi User Sintel</a>
+<a href="https://tiny-breezy-catamaran.glitch.me/?user=sintel&scale=0.25;posy=1.5">Multi User Sintel</a>
+
+<a href="https://tiny-breezy-catamaran.glitch.me/?user=tom&scale=0.25;posy=1.5">Multi User Tom</a>
 
 ## License
 ```
